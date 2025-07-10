@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CARMAGARD</title>
+</head>
+
+
+<body 
+style='font-family:-apple-system,Segoe UI;
+padding:0;
+margin: 0;'>
+
+<div class="main-container"
+	style='	height:100%;
+	padding: 0 20px;
+	background: #F2F9F2;
+	padding: 12px;'>
+	<div class="main-header" 
+	style='	background: #E5FF4A;
+	color:rgb(68, 68, 68);
+	padding:9px 12px;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;'>
+	<img
+		src='https://res.cloudinary.com/dwhkilbqk/image/upload/v1746196426/wowwznxctpgn8pbvnsf6.jpg'
+		style='margin-left: -2px; width: 28px; height: 27px; margin-bottom: 1.2px; border-radius: 50%; background-color: white; padding: 2px;'
+	/>
+	<h1 style='margin:8px 0; font-size:1.8em'>Welcome to Snipost</h1>
+</div>
+<div class="main-body" 
+style='padding: 12px;
+font-size: 15px;'>
+
+	<div>
+    <p>Hello <%= name %>,</p>
+    <p>Thank you for registering with Snipost. To activate your account, please use the following activation code:</p>
+    <h2><%= activationCode %></h2>
+    <p>Please enter this code on the activation page within the next 5 minutes.</p>
+    <p>If you did not register for a Snipost account, please ignore this email.</p>
+	</div>
+	<div style="margin-top:20px;font-size: 13px;font-weight: 500;">
+		Best regards,<br/>
+		Snipost
+	</div>
+</div>
+	<div class="main-footer" 
+	style='
+	text-align: center;
+	padding:12px;
+	background: rgb(82, 81, 81);
+	color: white;'>
+		<div class="footer-links"><i class="fas fa-envolope"></div>
+		<div class="copyright" style='font-size: 11px;'><p>Snipost © <%= currentYear %></p></div>
+	</div>
+</div>
+
+</body>
+</html>
