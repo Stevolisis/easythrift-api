@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: {
@@ -9,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     role: {
       type: DataTypes.ENUM('user', 'vendor'),
@@ -140,10 +146,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     ],
     hooks: {
-      beforeSave: (user) => {
+      beforeSave: async(user) => {
         if (user.businessDetails && !user.businessDetails.name) {
           user.businessDetails = null;
         }
+
+        if (user.changed('password')) {
+          const salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
+
       },
     },
   });
@@ -152,6 +164,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Ad, { foreignKey: 'authorId', as: 'ads' });
     User.hasMany(models.Escrow, { foreignKey: 'buyerId', as: 'purchases' });
     User.hasMany(models.Escrow, { foreignKey: 'sellerId', as: 'sales' });
+  };
+
+  User.prototype.comparePassword = function (plainPassword) {
+    return bcrypt.compare(plainPassword, this.password);
   };
 
   return User;

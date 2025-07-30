@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   const Admin = sequelize.define('Admin', {
     username: {
@@ -10,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    passwordHash: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -35,9 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['isSuspended'] },
     ],
     hooks: {
-      beforeSave: (admin) => {
+      beforeSave: async(admin) => {
         if (admin.role === 'superadmin' && admin.isSuspended) {
           throw new Error("Superadmin cannot be suspended");
+        }
+
+        if (admin.changed('password')) {
+          const salt = await bcrypt.genSalt(10);
+          admin.password = await bcrypt.hash(admin.password, salt);
         }
       },
       beforeUpdate: (admin) => {
@@ -48,5 +55,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   
-  return Admin;
+    User.prototype.comparePassword = function (plainPassword) {
+      return bcrypt.compare(plainPassword, this.password);
+    };
+
+    return Admin;
 };
