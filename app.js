@@ -1,9 +1,9 @@
 require('dotenv').config(); // Load .env variables
 const express = require('express');
-const db = require('./db');
 const PORT = process.env.PORT || 3000;
 const { ErrorMiddleware } = require("./middleware/error");
 const cors = require("cors");
+const db = require('./models');
 const app = express();
 
 // Middleware

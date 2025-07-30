@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Seetheworld1.",
+    "database": "easythrift",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Seetheworld1.",
+    "database": "easythrift",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Seetheworld1.",
+    "database": "easythrift",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
